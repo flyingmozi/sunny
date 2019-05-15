@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html,body{
+            width: 100%;
+            height: 100%;
+        }
+        .wrapper{
+            width: 100%;
+            height: 100%;
+        }
+        label{
+            margin:20px;
+            display: block;
+        }
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper" v-cloak>
+        <label :for="index" v-for='(item,index) in list'>
+            <input type="checkbox" name="" :id="index" :checked='item.flag' @click='chose(item)'>
+            {{item.name}}
+        </label>
+        <label for="lop"><input type="checkbox" name="" id="lop" v-model='flag' @click='mvp'>全选</label>
+        <h3>总价：￥{{allprice}}</h3>
+        <h6>{{allname}}</h6>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el:'.wrapper',
+            data:{
+                flag:false,
+                list:[
+                    {
+                        name:'绝地求生',
+                        flag:false,
+                        price:99,
+                    },
+                    {
+                        name:'NBA2K19',
+                        flag:false,
+                        price:199,
+                    },
+                    {
+                        name:'看门狗2',
+                        flag:false,
+                        price:59,
+                    },
+                    {
+                        name:'寂静岭',
+                        flag:false,
+                        price:89,
+                    }
+                ]
+            },
+            methods:{
+                chose(item){
+                    item.flag = !item.flag
+                    this.flag = this.list.every(item=>item.flag)
+                },
+                mvp(){
+                    this.flag=!this.flag
+                    this.list.map(item=>{
+                        item.flag = this.flag
+                    })
+                }   
+            },
+            computed:{
+                allprice(){
+                    return this.list.filter(item=>item.flag).reduce((prev,cur)=>prev+cur.price,0)
+                },
+                allname(){
+                    return this.list.filter(item=>item.flag).map(ios=>ios.name).join(',')
+                }
+            }
+        })
+    </script>
+</body>
+</html>

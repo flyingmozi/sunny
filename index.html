@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #rng{
+            width: 600px;
+            height: 400px;
+            background: rgb(247, 210, 210);
+            margin: 0 auto;
+        }
+        .active{
+            background: rgb(233, 169, 97);
+            color: #fff;
+            font-weight: 800;
+        }
+        .top{
+            width: 100%;
+            height: 80px;
+            display: flex;
+        }
+        .top li{
+            width: 20%;
+            height: 100%;
+            text-align: center;
+            line-height: 80px;
+            list-style: none;
+        }
+        .bottom{
+            width: 100%;
+            height: 320px;
+            background: rgb(211, 194, 194);
+            text-align: center;
+            line-height: 300px;
+        }
+        .bottom img{
+            width: 400px;
+            height: 250px;
+        }
+        [v-cloak]{
+            display: none; 
+        }
+    </style>
+</head>
+<body>
+    <div id="rng" v-cloak>
+        <ul class="top">
+            <li v-for='(item,index) in lab' :class='{active:cur==index}' @click = 'cur=index'>{{item}}</li>
+        </ul>
+        <div class="bottom">
+            <div v-for = '(mes,ins) in lop' v-show = 'ins==cur'><img :src='mes'/></div>
+        </div>
+       
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+
+       new Vue({
+           el:'#rng',
+           data:{
+               lab:['游戏','体育','娱乐','财富','新闻'],
+               lop:['http://pic17.nipic.com/20111102/8203711_131103207340_2.jpg','http://pic38.nipic.com/20140212/17942401_101320663138_2.jpg','http://img.zcool.cn/community/019b7e5bbe34c9a801213dea292f6e.png@2o.png','http://p.ssl.qhimg.com/t018ccca46939d3c0bf.jpg','http://img.daimg.com/uploads/allimg/170902/3-1FZ21G211.jpg'],
+               cur:0,
+           }
+       })
+
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./mui.min.css">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html,body{
+            width: 100%;
+            height: 100%;
+        }
+        .wrapper{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header{
+            width: 100%;
+            height: 48px;
+            border-bottom: 1px solid #ccc;
+        }
+        .header input{
+            margin-top:3px;
+        }
+        .main{
+            width: 100%;
+            flex: 1;
+        }
+        .top,.bottom{
+            width:100%;
+            height: 200px;
+            overflow: auto;
+        }
+        h3{
+            text-indent: 20px;
+            font-size: 16px;
+
+        }
+        label{
+            display: block;
+            padding-left: 20px;
+        }
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper" v-cloak>
+        <header class="header">
+            <input type="text" v-model='we' @keydown.13='add'>
+        </header>
+
+        <section class="main">
+            <div class="top">
+                <h3>未完成</h3>
+                <label :for="index" v-for='(item,index) in top' v-if='!item.flag'><input type="checkbox" name="" :id="index" @click='mvp(item)'>{{item.mes}}</label>
+            </div>
+
+            <div class="bottom">
+                <h3>已完成</h3>
+                <label for="" v-for='(les,los) in bottom' v-if='les.flag'><input :checked = 'les.flag' type="checkbox" name="" id="" @click = 'kop(les)'>{{les.mes}}</label>
+            </div>
+        </section>
+
+
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el:'.wrapper',
+            data:{
+                top:[],
+                bottom:[],
+                we:'',
+                flag:false,
+            },
+            methods:{
+                add(){
+                    this.top.push({
+                        flag:false,
+                        mes:this.we,
+                    })
+                },
+                mvp(item){
+                    item.flag = !item.flag
+                    this.bottom.push(item)
+                },
+                kop(item){
+                    item.flag = !item.flag
+                }
+            },
+            computed:{
+                addchose(){
+                    return this.top.filter(item=>item.flag)
+                }
+            }
+
+        })
+    </script>
+</body>
+</html>

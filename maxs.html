@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .wrapper{
+            width: 374px;
+            height: 500px;
+            margin: 0 auto;
+        }
+        .top{
+            width: 100%;
+            height: 300px;
+        }
+        .bottom{
+            width: 100%;
+            height: 150px;
+        }
+        input{
+            width: 80%;
+            height: 40px;
+            margin: 20px 0 0 10px;
+            border-radius: 20px;
+            border: 1px solid rgb(235, 175, 13);
+            outline: 0;
+            padding-left: 10px;
+        }
+        select{
+            display: block;
+            margin: 20px 0 0 50px;
+        }
+        button{
+            margin: 20px 0 0 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <div class="top">
+            <p v-for = '(item,index) in mes' v-if='item.flag'>{{item.name}},{{item.sex}}<button @click='del(item)'>删除</button></p>
+        </div>
+        <div class="bottom">
+            <input type="text" v-model='name' @keydown.13='add'>
+            <select v-model = 'sex'>
+                <option value="男">男</option>
+                <option value="女">女</option>
+            </select>
+ 
+            <!-- <button @click = 'add'>添加</button> -->
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        new Vue({
+            el:'#wrapper',
+            data:{
+                name:'',
+                sex:'男',
+                mes:[],
+            },
+            methods:{
+                add(){
+                    this.mes.push({
+                        name:this.name,
+                        sex:this.sex,
+                        flag:true,
+                    })
+                },
+                del(itm){
+                    itm.flag = false
+                }
+                
+            }
+        })
+    </script>
+</body>
+</html>
